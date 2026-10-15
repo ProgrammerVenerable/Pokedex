@@ -1,5 +1,5 @@
 import { createInterface } from "node:readline";
-import { commandExit } from "./command_exit.js";
+import { getCommands } from "./CLI_Commands.js";
 
 export function cleanInput(input: string): string[] {
     const cleaned = input.trim();
@@ -22,8 +22,20 @@ export function startREPL() {
             rl.prompt();
             return;
         }
-        if (cleanedInputs[0] == "exit") commandExit();
-        console.log(`Your command was:`, cleanedInputs[0]);
+        const availableCommands = getCommands();
+        const usersCommand: string = cleanedInputs[0];
+        try {
+            if (usersCommand in availableCommands) {
+                availableCommands[usersCommand].callback(availableCommands);
+            }
+            else {
+                console.log("Unknown command");
+            }
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                console.log(err.message);
+            }
+        }
         rl.prompt();
     })
 }
