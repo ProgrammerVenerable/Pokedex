@@ -30,6 +30,10 @@ describe.each([
         input: "Hello   World\tThis\nis\n\rJavaScript",
         expected: ["hello", "world", "this", "is", "javascript"],
     },
+    {
+        input: "",
+        expected: []
+    }
 
 ])("cleanInput($input)", ({ input, expected }) => {
     test(`Expected: ${expected}`, () => {

@@ -1,7 +1,10 @@
 import { createInterface } from "node:readline";
+import { commandExit } from "./command_exit.js";
 
 export function cleanInput(input: string): string[] {
-    const arr = input.trim().split(/\s+/);
+    const cleaned = input.trim();
+    if (cleaned === "") return [];
+    const arr = cleaned.split(/\s+/);
     return arr.map((str) => str.toLocaleLowerCase());
 }
 
@@ -15,11 +18,12 @@ export function startREPL() {
     rl.prompt();
     rl.on("line", (line) => {
         const cleanedInputs = cleanInput(line);
-        if (cleanInput.length == 0){
+        if (cleanedInputs.length == 0){
             rl.prompt();
             return;
         }
-        console.log("Your command was:", cleanedInputs[0]);
+        if (cleanedInputs[0] == "exit") commandExit();
+        console.log(`Your command was:`, cleanedInputs[0]);
         rl.prompt();
     })
 }
