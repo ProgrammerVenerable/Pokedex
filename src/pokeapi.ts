@@ -96,6 +96,11 @@ export class PokeAPI {
             method: "GET"
         });
 
+        if (!response.ok) {
+          throw new Error(`Request failed: ${response.status}`);
+        }
+
+
         const result = await response.json() as ShallowLocations;
         this.cache.add(url, result);
 
@@ -111,6 +116,10 @@ export class PokeAPI {
 		const response = await fetch(url,{
 				method: "GET"
 		});
+
+		if (!response.ok) {
+          throw new Error(`Request failed: ${response.status}`);
+        }
 
 		const result = await response.json() as Location;
 			this.cache.add(url, result);

@@ -1,4 +1,3 @@
-import { getCommands } from "./CLI_Commands.js";
 import { State } from "./state.js";
 
 export function cleanInput(input: string): string[] {
@@ -17,9 +16,10 @@ export function startREPL(state: State) {
             return;
         }
         const usersCommand: string = cleanedInputs[0];
+        const args: string[] = cleanedInputs.slice(1, cleanedInputs.length);
         try {
             if (usersCommand in state.commands) {
-                await state.commands[usersCommand].callback(state);
+                await state.commands[usersCommand].callback(state, ...args);
             }
             else {
                 console.log("Unknown command");
