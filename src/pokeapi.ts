@@ -97,7 +97,7 @@ export class PokeAPI {
         });
 
         if (!response.ok) {
-          throw new Error(`Request failed: ${response.status}`);
+          throw new Error(`Request failed: ${response.statusText}`);
         }
 
 
@@ -118,7 +118,7 @@ export class PokeAPI {
 		});
 
 		if (!response.ok) {
-          throw new Error(`Request failed: ${response.status}`);
+          throw new Error(`Request failed: ${response.statusText}`);
         }
 
 		const result = await response.json() as Location;

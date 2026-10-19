@@ -1,5 +1,6 @@
 import { CLICommand, getCommands } from "./CLI_Commands.js";
 import { createInterface, type Interface } from "readline";
+import { Pokemon } from "./pokemon_type.js";
 import { PokeAPI } from "./pokeapi.js";
 
 export type State = {
@@ -8,6 +9,7 @@ export type State = {
     api: PokeAPI;
     nextLocationsURL: string | null;
     prevLocationsURL: string | null;
+    pokedex: Record<string, Pokemon>
 }
 
 export async function initState(): Promise<State> {
@@ -23,6 +25,7 @@ export async function initState(): Promise<State> {
         readline,
         api,
         nextLocationsURL: null,
-        prevLocationsURL: null
+        prevLocationsURL: null,
+        pokedex: {}
     };
 }
